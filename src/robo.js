@@ -1,7 +1,14 @@
 const wppconnect = require('@wppconnect-team/wppconnect');
-const firebaseadmin = require(‘firebase-admin’);
+const firebaseadmin = require('firebase-admin');
 
 var userStages = [];
+
+const firebaseServiceAccount = require('./yourcredentialsfile.json');
+firebaseadmin.initializeApp({
+    credential: firebaseadmin.credential.cert(firebaseServiceAccount)
+});
+
+const db = firebaseadmin.firestore();
 
 wppconnect.create({
     session: 'whatsbot',
@@ -16,20 +23,18 @@ wppconnect.create({
     .catch((error) =>
         console.log(error));
 
-
-//  Stages = Olá  >>  Nome  >>  CPF  >> Fim
 function stages(client, message) {
     stage = userStages[message.from];
     switch (stage) {
         case 'Nome':
             const nome = message.body;
-            sendWppMessage(client, message.from, 'Obrigada, ' + nome);
+            sendWppMessage(client, message.from, 'Obrigado, ' + nome);
             sendWppMessage(client, message.from, 'Digite seu *CPF*:');
             userStages[message.from] = 'CPF';
             break;
         case 'CPF':
             const cpf = message.body;
-            sendWppMessage(client, message.from, 'Obrigada por informar seu CPF: ' + cpf);
+            sendWppMessage(client, message.from, 'Obrigado por informar seu CPF: ' + cpf);
             sendWppMessage(client, message.from, 'Fim');
             userStages[message.from] = 'Fim';
             break;
@@ -38,12 +43,11 @@ function stages(client, message) {
             break;
         default: // Olá 
             console.log('*Usuário atual* from:' + message.from);
-            sendWppMessage(client, message.from, 'Bem vindo ao Robô de Whatsapp do AppBasicão!');
+            sendWppMessage(client, message.from, 'Bem vindo ao Robô de testes!');
             sendWppMessage(client, message.from, 'Digite seu *NOME*:');
             userStages[message.from] = 'Nome';
     }
 }
-
 
 function sendWppMessage(client, sendTo, text) {
     client
@@ -54,4 +58,13 @@ function sendWppMessage(client, sendTo, text) {
         .catch((erro) => {
             console.error('ERRO: ', erro);
         });
+}
+
+async function saveUser(message) {
+    let user = {
+        'pushname': (message['sender']['pushname'] != undefined) ? message['sender']['pushname'] : '',
+        'whatsapp': (message.from).replace(/[^\d]+/g, '')
+    }
+    let newUser = await db.collection('usuarios').add(user);
+    return newUser;
 }

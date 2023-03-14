@@ -1,0 +1,15 @@
+{
+  "name": "wppconnect",
+  "version": "1.0.0",
+  "description": "",
+  "main": "robo.js",
+  "scripts": {
+    "start": "node robo.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wppconnect-team/wppconnect": "^1.22.0"
+  }
+}

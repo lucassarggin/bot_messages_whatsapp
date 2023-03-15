@@ -27,20 +27,35 @@ function stages(client, message) {
         case 'CPF':
             const cpf = message.body;
             sendWppMessage(client, message.from, 'Obrigado por informar seu CPF: ' + cpf);
-            sendWppMessage(client, message.from, 'Fim');
-            userStages[message.from] = 'Fim';
+            userStages[message.from] = 'Menu';
+            break;
+        case 'Menu':
+            const menu = message.body;
+            sendWppMessage(client, message.from, 'Escolha uma das opções abaixo:'+ menu);
+            sendMessageOptions(
+                '1 - Teste',
+                '2 - Teste2',
+                {
+                    quotedMessageId: reply,
+                    }
+                )
+                .then((result) => {
+                    console.log(result);
+                })
+                .catch((e) => {
+                console.log(e);
+                });
+                userStages[message.from] = 'Fim';
             break;
         case 'Fim':
-            sendWppMessage(client, message.from, 'Fim');
-            break;
-        default: // Olá 
+            const fim = message.body;
+            sendWppMessage(Client, message.from, 'Fim!'+ Fim)
+        default:
             console.log('*Usuário atual* from:' + message.from);
-            sendWppMessage(client, message.from, 'Bem vindo ao Robô de testes!');
-            sendWppMessage(client, message.from, 'Digite seu *NOME*:');
+            sendWppMessage(client, message.from, 'Bem vindo ao Robô de testes! Digite seu *NOME*:');
             userStages[message.from] = 'Nome';
     }
 }
-
 function sendWppMessage(client, sendTo, text) {
     client
         .sendText(sendTo, text)

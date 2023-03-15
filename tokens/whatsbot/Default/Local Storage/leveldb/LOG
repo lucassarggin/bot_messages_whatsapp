@@ -1,6 +1,0 @@
-2023/03/15-14:20:23.253 2eb4 Reusing MANIFEST C:\Users\Lucas Sarggin\Documents\wppconnect\tokens\whatsbot\Default\Local Storage\leveldb/MANIFEST-000001
-2023/03/15-14:20:23.254 2eb4 Recovering log #3
-2023/03/15-14:20:23.256 2eb4 Reusing old log C:\Users\Lucas Sarggin\Documents\wppconnect\tokens\whatsbot\Default\Local Storage\leveldb/000003.log 
-2023/03/15-14:23:23.526 2eb4 Level-0 table #5: started
-2023/03/15-14:23:23.528 2eb4 Level-0 table #5: 26503 bytes OK
-2023/03/15-14:23:23.532 2eb4 Delete type=0 #3

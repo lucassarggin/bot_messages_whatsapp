@@ -4,12 +4,13 @@
   "description": "",
   "main": "robo.js",
   "scripts": {
-    "start": "node robo.js",
+    "start": "node ./src/robo.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@wppconnect-team/wppconnect": "^1.22.0"
+    "@wppconnect-team/wppconnect": "^1.22.0",
+    "firebase-admin": "^11.5.0"
   }
 }

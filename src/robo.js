@@ -1,14 +1,6 @@
 const wppconnect = require('@wppconnect-team/wppconnect');
-const firebaseadmin = require('firebase-admin');
 
 var userStages = [];
-
-const firebaseServiceAccount = require('./yourcredentialsfile.json');
-firebaseadmin.initializeApp({
-    credential: firebaseadmin.credential.cert(firebaseServiceAccount)
-});
-
-const db = firebaseadmin.firestore();
 
 wppconnect.create({
     session: 'whatsbot',
@@ -58,13 +50,4 @@ function sendWppMessage(client, sendTo, text) {
         .catch((erro) => {
             console.error('ERRO: ', erro);
         });
-}
-
-async function saveUser(message) {
-    let user = {
-        'pushname': (message['sender']['pushname'] != undefined) ? message['sender']['pushname'] : '',
-        'whatsapp': (message.from).replace(/[^\d]+/g, '')
-    }
-    let newUser = await db.collection('usuarios').add(user);
-    return newUser;
 }
